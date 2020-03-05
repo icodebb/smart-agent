@@ -10,6 +10,8 @@ Check summer2019 and cheers2019 in Iceman's Cookbook Kubernetes chapter as well.
 
 ## Build
 
+### Command Line  
+
 The suggestion is to checkout code into $HOME/go/src/github.com/icodebb/smart-agent.
 
 e.g. on SuperMicro Debian Linux:  
@@ -19,7 +21,26 @@ cd /home/ice/go/src/github.com/icodebb/smart-agent/cmd
 build -o smart-agent
 ```
 
+### Build Docker Image
+
+e.g. on SuperMicro Debian Linux:
+
+```bash
+cd /home/ice/go/src/github.com/icodebb/smart-agent
+docker build -t smart-agent .
+docker images
+docker tag smart-agent imiceman/smart-agent:1.0.0
+docker login
+docker push imiceman/smart-agent:1.0.0
+```
+
 ## Docker Images
+
+### smart-agent
+
+[hub.docker.com/repository/docker/imiceman/smart-agent](https://hub.docker.com/repository/docker/imiceman/smart-agent)  
+
+### Others
 
 [hub.docker.com/repository/docker/imiceman/http-echo](https://hub.docker.com/repository/docker/imiceman/http-echo)  
 [hub.docker.com/repository/docker/imiceman/summer2019](https://hub.docker.com/repository/docker/imiceman/summer2019)  

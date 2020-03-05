@@ -1,0 +1,67 @@
+
+ice@supermicro:~/go/src/github.com/icodebb/smart-agent$ docker build -t smart-agent .
+Sending build context to Docker daemon  115.2kB
+Step 1/13 : FROM golang:latest as builder
+latest: Pulling from library/golang
+50e431f79093: Pull complete
+dd8c6d374ea5: Pull complete
+c85513200d84: Pull complete
+55769680e827: Pull complete
+15357f5e50c4: Pull complete
+9edb2e455d9d: Pull complete
+ed2acfe844ed: Pull complete
+Digest: sha256:72218b6a9e51cbbd91980fb8c770b6a577e2165defcbb838108df96f58898d25
+Status: Downloaded newer image for golang:latest
+ ---> 25c4671a1478
+Step 2/13 : LABEL maintainer="Ice<im.ice@yahoo.com>"
+ ---> Running in 852e29045101
+Removing intermediate container 852e29045101
+ ---> e4b259f52df1
+Step 3/13 : WORKDIR /app
+ ---> Running in 13019c386bf5
+Removing intermediate container 13019c386bf5
+ ---> 4b4fa8b5d642
+Step 4/13 : COPY go.mod go.sum ./
+ ---> a64523ef2a88
+Step 5/13 : RUN go mod download
+ ---> Running in 7e63525d1549
+Removing intermediate container 7e63525d1549
+ ---> 2945201217a0
+Step 6/13 : COPY . .
+ ---> 5d5dc9c15481
+Step 7/13 : RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main cmd/main.go
+ ---> Running in d55aa4dfe45a
+Removing intermediate container d55aa4dfe45a
+ ---> 271bfd55bdba
+Step 8/13 : FROM alpine:latest
+latest: Pulling from library/alpine
+c9b1b535fdd9: Pull complete
+Digest: sha256:ab00606a42621fb68f2ed6ad3c88be54397f981a7b70a79db3d1172b11c4367d
+Status: Downloaded newer image for alpine:latest
+ ---> e7d92cdc71fe
+Step 9/13 : RUN apk --no-cache add ca-certificates
+ ---> Running in 72ec7f44c280
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.11/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.11/community/x86_64/APKINDEX.tar.gz
+(1/1) Installing ca-certificates (20191127-r1)
+Executing busybox-1.31.1-r9.trigger
+Executing ca-certificates-20191127-r1.trigger
+OK: 6 MiB in 15 packages
+Removing intermediate container 72ec7f44c280
+ ---> e58d9e35d968
+Step 10/13 : WORKDIR /root/
+ ---> Running in ca5af75cf669
+Removing intermediate container ca5af75cf669
+ ---> 029ac61b6c12
+Step 11/13 : COPY --from=builder /app/main .
+ ---> 6b084e09a360
+Step 12/13 : EXPOSE 9999
+ ---> Running in 316ce521bce6
+Removing intermediate container 316ce521bce6
+ ---> a51af72c3f6f
+Step 13/13 : CMD ["./main"]
+ ---> Running in e38497d8efa1
+Removing intermediate container e38497d8efa1
+ ---> b6cd492ee178
+Successfully built b6cd492ee178
+Successfully tagged smart-agent:latest
