@@ -12,6 +12,13 @@ Check summer2019 and cheers2019 in Iceman's Cookbook Kubernetes chapter as well.
 
 The suggestion is to checkout code into $HOME/go/src/github.com/icodebb/smart-agent.
 
+e.g. on SuperMicro Debian Linux:  
+
+```bash
+cd /home/ice/go/src/github.com/icodebb/smart-agent/cmd
+build -o smart-agent
+```
+
 ## Docker Images
 
 [hub.docker.com/repository/docker/imiceman/http-echo](https://hub.docker.com/repository/docker/imiceman/http-echo)  
@@ -25,8 +32,11 @@ The suggestion is to checkout code into $HOME/go/src/github.com/icodebb/smart-ag
 E.g. on SuperMicro Linux:  
 
 ```bash
-cd /home/ice/go/src/github.com/icodebb/smart-agent
-go run src/main.go
+cd /home/ice/go/src/github.com/icodebb/smart-agent/cmd
+go run main.go
+# or
+go build -o smart-agent
+./smart-agent
 ```
 
 Then open a Web browser, input http://10.207.27.21:9999/, it should show  

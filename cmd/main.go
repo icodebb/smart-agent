@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,33 +11,16 @@ import (
 
 	"github.com/gorilla/mux"
 	utils "github.com/icodebb/smart-agent/utils"
+	web "github.com/icodebb/smart-agent/web"
 )
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	name := query.Get("name")
-	if name == "" {
-		name = "Friend"
-	}
-	log.Printf("Received request for %s\n", name)
-	w.Write([]byte(fmt.Sprintf("Hello, %s\n", name)))
-}
-
-func healthHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-}
-
-func readinessHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-}
 
 func main() {
 	// Create Server and Route Handlers
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", handler)
-	r.HandleFunc("/health", healthHandler)
-	r.HandleFunc("/readiness", readinessHandler)
+	r.HandleFunc("/", web.Handler)
+	r.HandleFunc("/health", web.HealthHandler)
+	r.HandleFunc("/readiness", web.ReadinessHandler)
 
 	// Always localhost, or any IP address.
 	ip := ""
