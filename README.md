@@ -22,6 +22,19 @@ The suggestion is to checkout code into $HOME/go/src/github.com/icodebb/smart-ag
 
 ### Run from command line
 
+E.g. on SuperMicro Linux:  
+
+```bash
+cd /home/ice/go/src/github.com/icodebb/smart-agent
+go run src/main.go
+```
+
+Then open a Web browser, input http://10.207.27.21:9999/, it should show  
+Hello, Friend.  
+
+input http://10.207.27.21:9999/?name=Iceman, then it should show:  
+Hello, Iceman.  
+
 ### Kubernetes
 
 ## Reference

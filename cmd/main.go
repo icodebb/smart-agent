@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	utils "github.com/icodebb/smart-agent/utils"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -39,9 +40,14 @@ func main() {
 	r.HandleFunc("/health", healthHandler)
 	r.HandleFunc("/readiness", readinessHandler)
 
+	// Always localhost, or any IP address.
+	ip := ""
+	port, _ := utils.GetEnv(utils.KeyHTTPPort, "9999")
+	addr := ip + ":" + port
+
 	srv := &http.Server{
 		Handler:      r,
-		Addr:         ":9999",
+		Addr:         addr,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
